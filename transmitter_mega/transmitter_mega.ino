@@ -8,16 +8,22 @@
 
 const byte slaveAddress[5] = {'R','x','A','A','A'};
 
-
 RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 
-byte dataToSend = 0;
-char txNum = '0';
+String dataToSendString = "000000000000";
+//char dataToSend[12] = "000000000000";
+int dataToSend = 0;
 
+byte LFSpeed;
+byte RFSpeed;
+byte LBSpeed;
+byte RBSpeed;
+
+int pot;
 
 unsigned long currentMillis;
 unsigned long prevMillis;
-unsigned long txIntervalMillis = 1000; // send once per second
+unsigned long txIntervalMillis = 10; // send once per second
 
 
 void setup() {
@@ -35,6 +41,7 @@ void setup() {
 //====================
 
 void loop() {
+    dataToSend = map(analogRead(A0),0, 1023, 0, 255);
     currentMillis = millis();
     if (currentMillis - prevMillis >= txIntervalMillis) {
         send();

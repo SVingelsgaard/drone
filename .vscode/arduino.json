@@ -1,0 +1,7 @@
+{
+    "port": "COM4",
+    "board": "arduino:avr:nano",
+    "programmer": "arduino:avrispmkii",
+    "sketch": "receiver_nano\\receiver_nano.ino",
+    "configuration": "cpu=atmega328old"
+}

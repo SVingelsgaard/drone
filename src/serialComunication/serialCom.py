@@ -1,0 +1,1 @@
+#serial comunication with arduino mega for sending the data over usb to mega(that sends radio to drone).

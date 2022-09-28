@@ -1,2 +1,4 @@
 #Main code for controling the drone
-from gui.backend.kivyBackend import *
+from gui.kivyBackend import GUI
+
+GUI().run()

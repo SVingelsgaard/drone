@@ -18,7 +18,7 @@ from kivy.uix.boxlayout import BoxLayout
 
 import time
 
-kv = Builder.load_file(".\\frontend\\main.kv")
+kv = Builder.load_file("C:\\Users\\Sigur\\Desktop\\cs\\drone\\src\\gui\\frontend\\kivyFrontend.kv")
 
 #window settings
 """Config.set('graphics', 'window_state', 'maximized')

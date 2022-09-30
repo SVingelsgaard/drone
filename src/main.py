@@ -1,8 +1,8 @@
 #Main code for controling the drone
-import time
 
 #variables that needs to be set:
 GUIcycletime = 0.02
+COMPort = "COM10"
 
 class Drone():
     def __init__(self):
@@ -16,12 +16,16 @@ class Drone():
         self.GUI.master = drone#set master so functions in drone can be run form the GUI
         self.GUI.run()#starting the GUI
 
-    def startSerialCom(self)
-        print("Serial comunication starting")
+    def startSerialCom(self):
+        print("Serial comunication starting..")
+        from serialComunication.serialCom import SerialCom
+        self.serialCom = SerialCom()#creating serial comunication
+        self.serialCom.COMPort = COMPort#setting arduino com port
 
     def mainCycle(self):
         self.GUI.cycle()
-        self.
+        self.serialCom.cycle()
 
 drone = Drone()
-drone.startGUI()
+drone.startSerialCom()
+drone.startGUI()#has to be the last function to start because it starts the main cycle

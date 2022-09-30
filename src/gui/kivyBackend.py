@@ -20,8 +20,8 @@ import time
 import os
 
 #config
-Config.set('kivy','window_icon',os.path.dirname(os.path.realpath(__file__))  + "\static\images\s.png")
-Config.set('kivy','window_title',"Drone control")
+Config.set('kivy','window_icon',os.path.dirname(os.path.realpath(__file__))  + "\static\images\s.png")#window icon
+
 """Config.set('graphics', 'window_state', 'maximized')
 Config.set('graphics', 'fullscreen', '1')"""
 
@@ -49,6 +49,9 @@ class GUI(App):
         self.readCycletime = 0
         self.runTime = 0
         self.master = 0
+
+
+        self.title = "Drone Controller"
         
     def cycle(self):
         pass
@@ -59,7 +62,10 @@ class GUI(App):
         self.env = self.root.get_screen('mainScreen').ids.env
 
     def runMainCycle(self, readCycletime):
-        self.master.mainCycle()#running the main cycle in the "master" class.  
+        try:
+            self.master.mainCycle()#running the main cycle in the "master" class.  
+        except:
+            print("cannot run main cycle")
         self.runTime += readCycletime#runtime
 
     #runns cycle
@@ -73,6 +79,3 @@ class GUI(App):
     def build(self):
         self.icon = 'ico/path.ico'
         return Builder.load_file(kvPath)
-
-#GUI().run()
-

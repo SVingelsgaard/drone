@@ -1,7 +1,6 @@
 {
-    "port": "COM4",
-    "board": "arduino:avr:nano",
+    "port": "COM10",
+    "board": "arduino:avr:uno",
     "programmer": "arduino:avrispmkii",
-    "sketch": "src\\arduino\\drone\\flightController_nano.ino",
-    "configuration": "cpu=atmega328old"
+    "sketch": "src\\arduino\\transmitter\\radioTransmitter_uno.ino"
 }

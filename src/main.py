@@ -6,11 +6,19 @@ GUIcycletime = 0.02
 
 class Drone():
     def __init__(self):
+        #system variables
         self.GUIcycletime = GUIcycletime
+
+        #drone variables(global)
+        #motor speeds. have to be int for parsing(?) to work
+        self.LF = 0
+        self.RF = 0
+        self.LB = 0
+        self.RB = 0
 
     def startGUI(self):
         print("GUI starting..")
-        #import stuff
+
         from gui.kivyBackend import GUI
         self.GUI = GUI()#crating GUI
         self.GUI.setCycletime = GUIcycletime#setting the cycletime
@@ -19,15 +27,15 @@ class Drone():
 
     def startSerialCom(self):
         print("Serial comunication starting..")
-        #import stuff
+
         from serialComunication.serialCom import SerialCom
-        import local
         self.serialCom = SerialCom()#creating serial comunication
-        self.serialCom.COMPort = local.COMPort#setting arduino com port
+        self.serialCom.master = drone#set master so functions and variables in drone can be run form the serailCom
 
     def mainCycle(self):
-        self.GUI.cycle()
-        self.serialCom.cycle()
+        self.serialCom.read()#reading data from the radio contorller(drone)
+        self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
+        self.serialCom.write()#writing the data to the radio controller(drone)
 
 drone = Drone()
 drone.startSerialCom()

@@ -1,5 +1,5 @@
+//code for the arduino uno that controlls the drone.
 // SimpleRx - the slave or the receiver
-
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>

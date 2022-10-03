@@ -1,7 +1,9 @@
+//code for the arduino uno that controlls the non-drone radio module and comunicates with the PC
 // SimpleTx - the master or the transmitter
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
+
 
 #define CE_PIN 9
 #define CSN_PIN 10
@@ -49,7 +51,8 @@ void loop() {
     dataToSend = 0;
     currentMillis = millis();
     if (currentMillis - prevMillis >= txIntervalMillis) {
-        send();
+        //send();
+        serialCom();
         prevMillis = millis();
     }
 }
@@ -84,7 +87,7 @@ void serialCom(){
     char inByte = Serial.read();
 
     //Message coming in (check not terminating character) and guard for over message size
-    if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH-1))   {
+    if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH-1)){
         //Add the incoming byte to our message
         message[message_pos] = inByte;
         message_pos++;
@@ -93,12 +96,11 @@ void serialCom(){
             message[message_pos] = inByte;
 
             //Print the message (or do other things)
-            Serial.println(message);
+            Serial.print(string(message));
         
 
             //Reset for the next message
             message_pos = 0;
         }
     }
-
 }

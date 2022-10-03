@@ -62,10 +62,7 @@ class GUI(App):
         self.env = self.root.get_screen('mainScreen').ids.env
 
     def runMainCycle(self, readCycletime):
-        try:
-            self.master.mainCycle()#running the main cycle in the "master" class.  
-        except:
-            print("cannot run main cycle")
+        self.master.mainCycle()#running the main cycle in the "master" class.  
         self.runTime += readCycletime#runtime
 
     #runns cycle

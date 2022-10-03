@@ -1,7 +1,7 @@
 #Main code for controling the drone
 
 #variables that needs to be set:
-GUIcycletime = 0.02
+GUIcycletime = 1#0.02
 #COMPort = "COM10"
 
 class Drone():

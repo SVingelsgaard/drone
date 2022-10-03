@@ -47,7 +47,7 @@ void getData() {
 void showData() {
     if (newData == true) {
         Serial.print("Data received ");
-        Serial.println(dataReceived);
+        Serial.println(String(dataReceived));
         newData = false;
     }
 }

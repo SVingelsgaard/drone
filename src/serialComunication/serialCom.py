@@ -9,7 +9,7 @@ class SerialCom:
         self.COMPort = local.COMPort #COM10"#deafault com port. should be set from main.py
         self.arduino = serial.Serial(port=self.COMPort, baudrate=9600, timeout=.1)
         self.dataIn = ""
-        self.dataOut = [1,2,3,4]
+        self.dataOut = "111222333444"
 
 
     def read(self):

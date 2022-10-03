@@ -16,7 +16,7 @@ RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 
 String dataToSendString = "000000000000";
 //char dataToSend[12] = "000000000000";
-int dataToSend = 0;
+int dataToSend = 111222333444;
 
 String LFSpeed;
 String RFSpeed;
@@ -48,11 +48,11 @@ void setup() {
 //====================
 
 void loop() {
-    dataToSend = 0;
+    dataToSend = 111222333444;
     currentMillis = millis();
     if (currentMillis - prevMillis >= txIntervalMillis) {
-        //send();
         serialCom();
+        send();
         prevMillis = millis();
     }
 }
@@ -61,12 +61,12 @@ void loop() {
 
 void send() {
     bool rslt;
-    rslt = radio.write( &dataToSendString, sizeof(dataToSendString) );
+    rslt = radio.write( &dataToSend, sizeof(dataToSend) );
         // Always use sizeof() as it gives the size as the number of bytes.
         // For example if dataToSend was an int sizeof() would correctly return 2
 
     Serial.print("Data Sent ");
-    Serial.print(dataToSend);
+    Serial.print(dataToSendString);
     if (rslt) {
         Serial.println("  Acknowledge received");
     }
@@ -96,7 +96,8 @@ void serialCom(){
             message[message_pos] = inByte;
 
             //Print the message (or do other things)
-            Serial.print(string(message));
+            Serial.println(String(message));
+            dataToSendString = String(message);
         
 
             //Reset for the next message

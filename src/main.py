@@ -2,7 +2,7 @@
 
 #variables that needs to be set:
 GUIcycletime = 0.02
-COMPort = "COM10"
+#COMPort = "COM10"
 
 class Drone():
     def __init__(self):
@@ -10,6 +10,7 @@ class Drone():
 
     def startGUI(self):
         print("GUI starting..")
+        #import stuff
         from gui.kivyBackend import GUI
         self.GUI = GUI()#crating GUI
         self.GUI.setCycletime = GUIcycletime#setting the cycletime
@@ -18,9 +19,11 @@ class Drone():
 
     def startSerialCom(self):
         print("Serial comunication starting..")
+        #import stuff
         from serialComunication.serialCom import SerialCom
+        import local
         self.serialCom = SerialCom()#creating serial comunication
-        self.serialCom.COMPort = COMPort#setting arduino com port
+        self.serialCom.COMPort = local.COMPort#setting arduino com port
 
     def mainCycle(self):
         self.GUI.cycle()

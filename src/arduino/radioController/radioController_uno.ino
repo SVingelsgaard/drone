@@ -16,7 +16,9 @@ RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 
 String dataToSendString = "000000000000";
 //char dataToSend[12] = "000000000000";
-int dataToSend = 111222333444;
+int dataToSend = 0;
+
+String serialOutput = "";
 
 String LFSpeed;
 String RFSpeed;
@@ -36,23 +38,20 @@ void setup() {
     Serial.println("SimpleTx Starting");
 
     radio.begin();
-    Serial.println("1");
     radio.setDataRate( RF24_250KBPS );
-    Serial.println("2");
     radio.setRetries(3,5); // delay, count
-    Serial.println("3");
     radio.openWritingPipe(slaveAddress);
-    Serial.println("4");
 }
 
 //====================
 
 void loop() {
-    dataToSend = 111222333444;
+    dataToSend = 7;
     currentMillis = millis();
-    if (currentMillis - prevMillis >= txIntervalMillis) {
-        serialCom();
+    serialRead();//allways check for serial data
+    if (currentMillis - prevMillis >= txIntervalMillis) {//sending data on a intervall
         send();
+        serialWrite();
         prevMillis = millis();
     }
 }
@@ -64,44 +63,44 @@ void send() {
     rslt = radio.write( &dataToSend, sizeof(dataToSend) );
         // Always use sizeof() as it gives the size as the number of bytes.
         // For example if dataToSend was an int sizeof() would correctly return 2
-
-    Serial.print("Data Sent ");
-    Serial.print(dataToSendString);
-    if (rslt) {
-        Serial.println("  Acknowledge received");
-    }
-    else {
-        Serial.println("  Tx failed");
+    if (not rslt) {
+        serialPrint(String("Radio Tx failed"));
     }
 }
-void serialCom(){
-    
-
+void serialRead(){
     //Check to see if anything is available in the serial receive buffer
     while (Serial.available() > 0){
-    //Create a place to hold the incoming message
-    static char message[MAX_MESSAGE_LENGTH];
-    static unsigned int message_pos = 0;
+        //Create a place to hold the incoming message
+        static char message[MAX_MESSAGE_LENGTH];
+        static unsigned int message_pos = 0;
 
-    //Read the next available byte in the serial receive buffer
-    char inByte = Serial.read();
+        //Read the next available byte in the serial receive buffer
+        char inByte = Serial.read();
 
-    //Message coming in (check not terminating character) and guard for over message size
-    if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH-1)){
-        //Add the incoming byte to our message
-        message[message_pos] = inByte;
-        message_pos++;
+        //Message coming in (check not terminating character) and guard for over message size
+        if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH-1)){
+            //Add the incoming byte to our message
+            message[message_pos] = inByte;
+            message_pos++;
         } else {//Full message received...
             //Add last byte.
             message[message_pos] = inByte;
 
             //Print the message (or do other things)
-            Serial.println(String(message));
-            dataToSendString = String(message);
+            serialPrint(String(message));
+            //dataToSendString = String(message);
         
 
             //Reset for the next message
             message_pos = 0;
         }
     }
+}
+void serialPrint(String data){
+    serialOutput += data + String("\n");
+}
+
+void serialWrite(){
+    Serial.println(serialOutput);
+    serialOutput = "";
 }

@@ -1,8 +1,7 @@
 #Main code for controling the drone
 
 #variables that needs to be set:
-GUIcycletime = 1#0.02
-#COMPort = "COM10"
+GUIcycletime = .2#.02
 
 class Drone():
     def __init__(self):
@@ -10,7 +9,7 @@ class Drone():
         self.GUIcycletime = GUIcycletime
 
         #drone variables(global)
-        #motor speeds. have to be int for parsing(?) to work
+        #motor speeds. have to be int for making it easyer to send data aswell as the motors taking an int as speedreference.
         self.LF = 0
         self.RF = 0
         self.LB = 0
@@ -33,7 +32,7 @@ class Drone():
         self.serialCom.master = drone#set master so functions and variables in drone can be run form the serailCom
 
     def mainCycle(self):
-        self.serialCom.read()#reading data from the radio contorller(drone)
+        self.serialCom.read()#reading data from the radio controller(drone)
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
         self.serialCom.write()#writing the data to the radio controller(drone)
 

@@ -48,8 +48,7 @@ class GUI(App):
         self.setCycletime = 0.02#deafault cycletime. this should be set from the master program
         self.readCycletime = 0
         self.runTime = 0
-        self.master = 0
-
+        self.master = None
 
         self.title = "Drone Controller"
         

@@ -14,9 +14,9 @@ const unsigned int MAX_MESSAGE_LENGTH = 12;
 
 RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 
-String dataToSendString = "000000000000";
+//static char dataRecived[12] = "000000000000";
+static char message[MAX_MESSAGE_LENGTH];
 //char dataToSend[12] = "000000000000";
-int dataToSend = 0;
 
 String serialOutput = "";
 
@@ -46,7 +46,7 @@ void setup() {
 //====================
 
 void loop() {
-    dataToSend = 7;
+    //dataToSend = dataRecived;
     currentMillis = millis();
     serialRead();//allways check for serial data
     if (currentMillis - prevMillis >= txIntervalMillis) {//sending data on a intervall
@@ -60,7 +60,8 @@ void loop() {
 
 void send() {
     bool rslt;
-    rslt = radio.write( &dataToSend, sizeof(dataToSend) );
+
+    rslt = radio.write( &message, sizeof(message) );
         // Always use sizeof() as it gives the size as the number of bytes.
         // For example if dataToSend was an int sizeof() would correctly return 2
     if (not rslt) {
@@ -71,7 +72,7 @@ void serialRead(){
     //Check to see if anything is available in the serial receive buffer
     while (Serial.available() > 0){
         //Create a place to hold the incoming message
-        static char message[MAX_MESSAGE_LENGTH];
+        
         static unsigned int message_pos = 0;
 
         //Read the next available byte in the serial receive buffer
@@ -88,7 +89,6 @@ void serialRead(){
 
             //Print the message (or do other things)
             serialPrint(String(message));
-            //dataToSendString = String(message);
         
 
             //Reset for the next message

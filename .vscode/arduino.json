@@ -1,7 +1,6 @@
 {
-    "port": "COM13",
-    "board": "arduino:avr:mega",
+    "port": "COM10",
+    "board": "arduino:avr:uno",
     "programmer": "arduino:avrispmkii",
-    "sketch": "src\\arduino\\radioController\\radioController_uno.ino",
-    "configuration": "cpu=atmega2560"
+    "sketch": "src\\arduino\\radioController\\radioController_uno.ino"
 }

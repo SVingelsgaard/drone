@@ -32,7 +32,8 @@ class Drone():
         self.serialCom.master = drone#set master so functions and variables in drone can be run form the serailCom
 
     def mainCycle(self):
-        self.serialCom.read()#reading data from the radio controller(drone)
+        #self.serialCom.read()#reading data from the radio controller(drone). THIS CRASHES BUT IS NOT NEEDE ATM
+        self.LB += 1
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
         self.serialCom.write()#writing the data to the radio controller(drone)
 

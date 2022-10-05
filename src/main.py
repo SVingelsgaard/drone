@@ -35,7 +35,7 @@ class Drone():
         #self.serialCom.read()#reading data from the radio controller(drone). THIS CRASHES BUT IS NOT NEEDE ATM
         self.LB += 1
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
-        self.serialCom.write()#writing the data to the radio controller(drone)
+        #self.serialCom.write()#writing the data to the radio controller(drone)
 
 drone = Drone()
 #drone.startSerialCom()

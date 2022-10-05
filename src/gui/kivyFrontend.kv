@@ -24,7 +24,7 @@ WindowManager:
     canvas.before:
         PushMatrix:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: .1, .1, .1, 1
         Rectangle:
             pos: self.pos
             size: self.size
@@ -32,10 +32,45 @@ WindowManager:
         PopMatrix:
 
     ControlPanel:
-        size: root.size
-        ProgressView:
+        ProcessView:
+            size_hint: None, None
+            size: 400, 400
+            pos_hint: {"right": 1, "top": 1}
+            canvas.before:
+                Color:
+                    rgba: .2, .2, .2, 1
+                Rectangle:
+                        # self here refers to the widget i.e FloatLayout
+                    pos: self.pos
+                    size: self.size
+
             Image:
-                size: root.size
-                source: "static/images/drone.png"
+                pos: self.parent.pos
+                size: self.texture_size
+                source: "src\gui\static\images\drone.png"
+            
+            CircularProgressBar:
+                id: LFoutGui
+                widget_size: 100
+                thickness: 5
+                pos: 155, 450
+
+            CircularProgressBar:
+                id: LBoutGui
+                widget_size: 100
+                thickness: 5
+                pos: 155, 203
+
+            CircularProgressBar:
+                id: RFoutGui
+                widget_size: 100
+                thickness: 5
+                pos: 401, 450
+
+            CircularProgressBar:
+                id: RBoutGui
+                widget_size: 100
+                thickness: 5
+                pos: 401, 203
 
             

@@ -16,6 +16,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 
+from gui.static.kivyModules import circularProgressBar
 import time
 import os
 
@@ -59,9 +60,9 @@ class GUI(App):
         pass
 
     def on_start(self):
-
+        pass
         #variables for kv file
-        self.env = self.root.get_screen('mainScreen').ids.env
+        # = self.root.get_screen('mainScreen').ids.env
 
     def runMainCycle(self, readCycletime):
         self.master.mainCycle()#running the main cycle in the "master" class.  

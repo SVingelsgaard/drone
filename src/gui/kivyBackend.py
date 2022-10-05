@@ -37,7 +37,10 @@ class StartScreen(Screen):
 class MainScreen(Screen):
     pass
 
-class Envirement(FloatLayout):
+class ControlPanel(FloatLayout):
+    pass
+
+class ProcessView(Widget):
     pass
 
 class GUI(App):

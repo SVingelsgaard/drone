@@ -15,7 +15,7 @@ const unsigned int MAX_MESSAGE_LENGTH = 12;
 RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 
 //static char dataRecived[12] = "000000000000";
-static char message[MAX_MESSAGE_LENGTH];
+static char message[MAX_MESSAGE_LENGTH] = "000000000000";
 //char dataToSend[12] = "000000000000";
 
 String serialOutput = "";

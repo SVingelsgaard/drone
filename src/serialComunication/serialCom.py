@@ -23,13 +23,14 @@ class SerialCom:
     def read(self):
         self.dataIn = (self.arduino.readline().decode("utf-8"))#read data from arduino. an emoji is atached to the end of the message to indicate it is a string. idk y. ignore it.
 
-        print(self.dataIn)
+        #print(self.dataIn)
         
         
     def write(self):
         
         self.parseData()
         self.arduino.write(bytes(str(self.dataOut), 'utf-8'))#write data to arduino
+        print(self.dataOut)
 
     def parseData(self):#gathering data from the master and saving in a format for writing to arduino
         self.LFString = str(self.master.LF).rjust(3,"0")

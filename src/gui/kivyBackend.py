@@ -23,8 +23,8 @@ import os
 #config
 Config.set('kivy','window_icon',os.path.dirname(os.path.realpath(__file__))  + "\static\images\s.png")#window icon
 
-"""Config.set('graphics', 'window_state', 'maximized')
-Config.set('graphics', 'fullscreen', '1')"""
+Config.set('graphics', 'width', '800')
+Config.set('graphics', 'height', '600')
 
 kvPath = os.path.dirname(os.path.realpath(__file__))  + "\kivyFrontend.kv"#getting the path this file then adding the actual file
 
@@ -44,6 +44,11 @@ class ControlPanel(FloatLayout):
 class ProcessView(Widget):
     pass
 
+class Controls(Widget):
+    manLF = NumericProperty(0)
+    manRF = NumericProperty(0)
+    manLB = NumericProperty(0)
+    manRB = NumericProperty(0)
 class GUI(App):
     def __init__(self, **kwargs):
         super(GUI, self).__init__(**kwargs)
@@ -53,17 +58,20 @@ class GUI(App):
         self.readCycletime = 0
         self.runTime = 0
         self.master = None
-
         self.title = "Drone Controller"
         
     def cycle(self):
-        pass
+        self.input()
+
+    def input(self):#input form the GUI
+        self.controls.manLF = int(self.root.get_screen('mainScreen').ids.manLF.value)
+        self.controls.manRF = int(self.root.get_screen('mainScreen').ids.manRF.value)
+        self.controls.manLB = int(self.root.get_screen('mainScreen').ids.manLB.value)
+        self.controls.manRB = int(self.root.get_screen('mainScreen').ids.manRB.value)
 
     def on_start(self):
-        pass
         #variables for kv file
-        # = self.root.get_screen('mainScreen').ids.env
-
+        self.controls = self.root.get_screen('mainScreen').ids.controls
     def runMainCycle(self, readCycletime):
         self.master.mainCycle()#running the main cycle in the "master" class.  
         self.runTime += readCycletime#runtime

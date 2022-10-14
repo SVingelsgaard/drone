@@ -40,12 +40,12 @@ WindowManager:
                 Color:
                     rgba: .2, .2, .2, 1
                 Rectangle:
-                        # self here refers to the widget i.e FloatLayout
                     pos: self.pos
                     size: self.size
 
             Image:
-                pos: self.parent.pos
+                pos_hint: {"right": 1, "top": 1}
+                pos: self.parent.x + self.parent.width * .5 - self.width * .5, self.parent.y + self.parent.height * .5 - self.height * .5
                 size: self.texture_size
                 source: "src\gui\static\images\drone.png"
             
@@ -72,5 +72,45 @@ WindowManager:
                 widget_size: 100
                 thickness: 5
                 pos: 401, 203
+        Controls:
+            id: controls
+            size_hint: None, None
+            size: 400, 400
+            pos_hint: {"left": 1, "top": 1}
+            canvas.before:
+                Color:
+                    rgba: .2, .2, .2, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            GridLayout:
+                pos: self.parent.pos
+                size: self.parent.size
+                cols: 4
+                Slider:
+                    id: manLF
+                    min: 0
+                    max: 180
+                    step: 1
+                    orientation: 'vertical'
+                Slider:
+                    id: manRF
+                    min: 0
+                    max: 180
+                    step: 1
+                    orientation: 'vertical'
+                Slider:
+                    id: manLB
+                    min: 0
+                    max: 180
+                    step: 1
+                    orientation: 'vertical'
+                Slider:
+                    id: manRB
+                    min: 0
+                    max: 180
+                    step: 1
+                    orientation: 'vertical'
+
 
             

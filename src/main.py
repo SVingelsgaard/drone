@@ -44,5 +44,5 @@ class Drone():
         self.serialCom.write()#writing the data to the radio controller(drone)
 
 drone = Drone()
-drone.startSerialCom()
+drone.startSerialCom()#serialcom crashes GUI. need threading i think
 drone.startGUI()#has to be the last function to start because it starts the main cycle

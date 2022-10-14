@@ -46,10 +46,9 @@ void setup() {
 //====================
 
 void loop() {
-    //dataToSend = dataRecived;
     currentMillis = millis();
-    serialRead();//allways check for serial data
     if (currentMillis - prevMillis >= txIntervalMillis) {//sending data on a intervall
+        serialRead();
         send();
         serialWrite();
         prevMillis = millis();
@@ -64,8 +63,8 @@ void send() {
     rslt = radio.write( &message, sizeof(message) );
         // Always use sizeof() as it gives the size as the number of bytes.
         // For example if dataToSend was an int sizeof() would correctly return 2
-    if (not rslt) {
-        serialPrint(String("Radio Tx failed"));
+    if (rslt) {
+        serialPrint("Data sendt " + String(message));
     }
 }
 void serialRead(){
@@ -88,7 +87,7 @@ void serialRead(){
             message[message_pos] = inByte;
 
             //Print the message (or do other things)
-            serialPrint(String(message));
+            //serialPrint(String(message));
         
 
             //Reset for the next message
@@ -101,6 +100,6 @@ void serialPrint(String data){
 }
 
 void serialWrite(){
-    Serial.println(serialOutput);
+    Serial.print(serialOutput);
     serialOutput = "";
 }

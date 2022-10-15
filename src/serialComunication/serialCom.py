@@ -1,8 +1,8 @@
 #serial comunication with arduino mega for sending the data over usb to mega(that sends radio to drone).
-import string
-import serial
-import time
 import local
+import serial
+import threading
+
 
 class SerialCom:
     def __init__(self, **kwargs):
@@ -18,9 +18,13 @@ class SerialCom:
         self.RFString = "000"
         self.LBString = "000"
         self.RBString = "000"
+        #self.serialThread = threading.Thread(target=self.read)
+        #self.serialThread.daemon = True
+        #self.serialThread.start()
 
 
     def read(self):
+        global uart
         self.dataIn = (self.arduino.readline().decode("utf-8"))#read data from arduino. an emoji is atached to the end of the message to indicate it is a string. idk y. ignore it.
         print(self.dataIn)
         

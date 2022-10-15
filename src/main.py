@@ -38,10 +38,11 @@ class Drone():
         self.RF = self.GUI.controls.manRF
         self.LB = self.GUI.controls.manLB
         self.RB = self.GUI.controls.manRB
-
         #print(self.LF)
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
         self.serialCom.write()#writing the data to the radio controller(drone)
+
+
 
 drone = Drone()
 drone.startSerialCom()#serialcom crashes GUI. need threading i think

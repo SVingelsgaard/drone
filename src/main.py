@@ -1,5 +1,8 @@
 #Main code for controling the drone
 
+#imports
+import keyboard
+
 #variables that needs to be set:
 GUIcycletime = .2
 mainCycletime = 1
@@ -8,6 +11,7 @@ class Drone():
     def __init__(self):
         #system variables
         import threading
+        
         #self.mainThread = threading.Thread(target=self.cycle)
         
         self.GUIcycletime = GUIcycletime
@@ -28,14 +32,25 @@ class Drone():
         self.GUI.master = drone#set master so functions in drone can be run form the GUI
         self.GUI.run()#starting the GUI
 
+    def stopGUI(self):
+        self.GUI.stop_()
+
     def startSerialCom(self):
         print("Serial comunication starting..")
 
         from serialComunication.serialCom import SerialCom
         self.serialCom = SerialCom()#creating serial comunication
         self.serialCom.master = drone#set master so functions and variables in drone can be run form the serailCom
+        self.serialCom.start()
+
+    def stopSerialCom(self):
+        self.serialCom.stop()
 
     def mainCycle(self):
+        if keyboard.is_pressed('q'):
+            self.stopSerialCom()
+            self.stopGUI()
+
         #self.serialCom.read()#reading data from the radio controller(drone). THIS CRASHES BUT IS NOT NEEDE ATM
 
         self.LF = self.GUI.controls.manLF
@@ -44,7 +59,7 @@ class Drone():
         self.RB = self.GUI.controls.manRB
 
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
-        self.serialCom.write()#writing the data to the radio controller(drone)
+        #self.serialCom.write()#writing the data to the radio controller(drone)
 
 
 

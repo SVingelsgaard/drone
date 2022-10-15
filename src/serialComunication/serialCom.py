@@ -1,8 +1,10 @@
 #serial comunication with arduino mega for sending the data over usb to mega(that sends radio to drone).
+from concurrent.futures import thread
 import local
 import serial
 import threading
 import time
+import keyboard
 
 
 class SerialCom():
@@ -17,6 +19,7 @@ class SerialCom():
             print('Arduino disconected. running in "offline" mode')
             self.offline = True
         self.master = None
+        self.run = False
         self.dataIn = ""
         self.dataOut = "000000000000"
         
@@ -26,11 +29,27 @@ class SerialCom():
         self.RBString = "000"
         
         self.serialThread = threading.Thread(target=self.cycle)
-        self.serialThread.start()
+        
+
+    def start(self):
+        self.run = True
+        self.serialThread.start()#this needs to be after self.run is set to true for shit to work
+        print("Serial comunication running")
+
+    def stop(self):
+        self.run = False
 
     def cycle(self):
         while True:
-            self.write()
+            if (not self.run):
+                print("stopping serial app.")
+                break
+
+
+            try:
+                self.write()
+            except:
+                print("write failed")
 
 
     def read(self):
@@ -54,3 +73,4 @@ class SerialCom():
         self.LBString = str(self.master.LB).rjust(3,"0")
         self.RBString = str(self.master.RB).rjust(3,"0")
         self.dataOut = (self.LFString + self.RFString + self.LBString + self.RBString)#data out is a 12 letter string where each motor speed have 3 letters
+

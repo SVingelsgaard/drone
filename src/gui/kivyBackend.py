@@ -15,6 +15,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
 
 from gui.static.kivyModules import circularProgressBar
 import time
@@ -59,6 +60,10 @@ class GUI(App):
         self.runTime = 0
         self.master = None
         self.title = "Drone Controller"
+
+    def stop_(self):
+        App.get_running_app().stop()
+        Window.close()  
         
     def cycle(self):
         self.input()

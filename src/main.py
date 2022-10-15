@@ -1,7 +1,7 @@
 #Main code for controling the drone
 
 #variables that needs to be set:
-GUIcycletime = 1#.02
+GUIcycletime = .02
 mainCycletime = 1
 
 class Drone():

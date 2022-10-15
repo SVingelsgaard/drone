@@ -2,6 +2,7 @@
 import local
 import serial
 import threading
+import time
 
 
 class SerialCom():
@@ -25,15 +26,11 @@ class SerialCom():
         self.RBString = "000"
         
         self.serialThread = threading.Thread(target=self.cycle)
-        #self.serialThread.start()
+        self.serialThread.start()
 
     def cycle(self):
-        
-        print("reeeeeeeeeeeeeeeeeeeeee")
-        #while True:
-            #pass
-        self.read()
-        self.write()
+        while True:
+            self.write()
 
 
     def read(self):

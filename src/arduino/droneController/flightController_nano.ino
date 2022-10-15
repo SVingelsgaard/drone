@@ -10,13 +10,12 @@
 const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
 RF24 radio(CE_PIN, CSN_PIN);
 char dataReceived[12]; // this must match dataToSend in the TX
-bool newData = false;
 
 //hardware
-int LFPin = 3;
-int RFPin = 4;
-int LBPin = 5;
-int RBPin = 6;
+int LFPin = 5;//6
+int RFPin = 6;//3
+int LBPin = 3;//4
+int RBPin = 4;//5
 
 int batteryVoltagePin = A0;
 
@@ -75,6 +74,7 @@ void getRadioData() {
         RFSpeed = (String(dataRecivedString.charAt(3)) + String(dataRecivedString.charAt(4)) + String(dataRecivedString.charAt(5))).toInt();
         LBSpeed = (String(dataRecivedString.charAt(6)) + String(dataRecivedString.charAt(7)) + String(dataRecivedString.charAt(8))).toInt();
         RBSpeed = (String(dataRecivedString.charAt(9)) + String(dataRecivedString.charAt(10)) + String(dataRecivedString.charAt(11))).toInt();
+        Serial.println(dataReceived);
     }
 }
 void getDroneData(){

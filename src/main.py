@@ -2,10 +2,13 @@
 
 #variables that needs to be set:
 GUIcycletime = 1#.02
+mainCycletime = 1
 
 class Drone():
     def __init__(self):
         #system variables
+        import threading
+        #self.mainThread = threading.Thread(target=self.cycle)
         
         self.GUIcycletime = GUIcycletime
 
@@ -34,11 +37,12 @@ class Drone():
 
     def mainCycle(self):
         #self.serialCom.read()#reading data from the radio controller(drone). THIS CRASHES BUT IS NOT NEEDE ATM
+
         self.LF = self.GUI.controls.manLF
         self.RF = self.GUI.controls.manRF
         self.LB = self.GUI.controls.manLB
         self.RB = self.GUI.controls.manRB
-        #print(self.LF)
+
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
         self.serialCom.write()#writing the data to the radio controller(drone)
 

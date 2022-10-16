@@ -1,3 +1,5 @@
+#GUI using the kivy framework
+
 import kivy
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -85,6 +87,7 @@ class GUI(App):
     def runMainCycle(self, readCycletime):
         self.master.mainCycle()#running the main cycle in the "master" class.  
         self.runTime += readCycletime#runtime
+        print(self.runTime)
 
     #runns cycle
     def runApp(self):

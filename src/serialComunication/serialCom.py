@@ -27,6 +27,7 @@ class SerialCom():
         self.RBString = "000"
         
         self.serialThread = threading.Thread(target=self.threadLoop)
+        self.serialThread.daemon = True
         
 
     def start(self):
@@ -45,7 +46,7 @@ class SerialCom():
                 print("Serial comunication stoping")
                 break
             self.write()
-            time.sleep(.01)
+            time.sleep(.1)
 
 
     def read(self):

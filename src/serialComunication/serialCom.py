@@ -59,7 +59,7 @@ class SerialCom():
     def write(self):
         self.parseData()
         if not self.offline:
-            self.arduino.write(bytes(str(self.dataOut), 'utf-8'))#write data to arduino
+            pass#self.arduino.write(bytes(str(self.dataOut), 'utf-8'))#write data to arduino
         
         print(self.dataOut)
 

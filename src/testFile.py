@@ -7,16 +7,19 @@ import serial
 
 class SerialCom():
     def __init__(self):
-        self.data = "data"
+        self.data = "000000000002"
         self.COMPort = "COM10"
         self.arduino = serial.Serial(port=self.COMPort, baudrate=9600, timeout=.1)
         self.serialThread = threading.Thread(target=self.write)
         self.serialThread.start()
     def write(self):
-        for i in range(10):
-            self.arduino.write(bytes(str(i), 'utf-8'))
-            print(i)
+        while True:
+            self.arduino.write(bytes(self.data, 'utf-8'))
+            print(self.data)
             time.sleep(1)
 
 
-SerialCom()
+s = SerialCom()
+while True:
+    print("loop")
+    time.sleep(0.2)

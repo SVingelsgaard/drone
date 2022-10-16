@@ -1,23 +1,18 @@
 //code for the arduino uno that controlls the non-drone radio module and comunicates with the PC
-// SimpleTx - the master or the transmitter
+
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
 
-
+//ratdio
 #define CE_PIN 9
 #define CSN_PIN 10
-
 const byte slaveAddress[5] = {'R','x','A','A','A'};
-
 const unsigned int MAX_MESSAGE_LENGTH = 12;
-
 RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
-
-//static char dataRecived[12] = "000000000000";
 static char message[MAX_MESSAGE_LENGTH] = "000000000000";
-//char dataToSend[12] = "000000000000";
 
+//variables
 String serialOutput = "";
 
 String LFSpeed;
@@ -35,7 +30,7 @@ void setup() {
     pinMode(10, OUTPUT);
     Serial.begin(9600);
 
-    Serial.println("SimpleTx Starting");
+    //Serial.println("SimpleTx Starting");
 
     radio.begin();
     radio.setDataRate( RF24_250KBPS );
@@ -64,7 +59,7 @@ void send() {
         // Always use sizeof() as it gives the size as the number of bytes.
         // For example if dataToSend was an int sizeof() would correctly return 2
     if (rslt) {
-        serialPrint("Data sendt " + String(message));
+        //serialPrint("Data sendt " + String(message));
     }
 }
 void serialRead(){

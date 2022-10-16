@@ -12,10 +12,10 @@ RF24 radio(CE_PIN, CSN_PIN);
 char dataReceived[12]; // this must match dataToSend in the TX
 
 //hardware
-int LFPin = 5;//6
-int RFPin = 6;//3
-int LBPin = 3;//4
-int RBPin = 4;//5
+int LFPin = 5;//5
+int RFPin = 3;//6
+int LBPin = 4;//3
+int RBPin = 6;//4
 
 int batteryVoltagePin = A0;
 
@@ -70,7 +70,7 @@ void getRadioData() {
         RFSpeed = (String(dataRecivedString.charAt(3)) + String(dataRecivedString.charAt(4)) + String(dataRecivedString.charAt(5))).toInt();
         LBSpeed = (String(dataRecivedString.charAt(6)) + String(dataRecivedString.charAt(7)) + String(dataRecivedString.charAt(8))).toInt();
         RBSpeed = (String(dataRecivedString.charAt(9)) + String(dataRecivedString.charAt(10)) + String(dataRecivedString.charAt(11))).toInt();
-        Serial.println(dataReceived);
+        //Serial.println(dataReceived);
     }
 }
 void getDroneData(){
@@ -79,8 +79,13 @@ void getDroneData(){
 }
 
 void writeOutput(){
-    LF.write(LFSpeed);
-    RF.write(RFSpeed);
-    LB.write(LBSpeed);
-    RB.write(RBSpeed);
+    LF.write(escRange(LFSpeed));
+    Serial.println(escRange(LFSpeed));
+    RF.write(escRange(RFSpeed));
+    LB.write(escRange(LBSpeed));
+    RB.write(escRange(RBSpeed));
+}
+
+int escRange(int speed){//makes data the range that the ESC wants
+    return max(min(map(speed, 0,180, 40,100),100),40);//maps and caps data
 }

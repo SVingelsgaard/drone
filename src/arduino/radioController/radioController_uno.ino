@@ -45,7 +45,7 @@ void loop() {
     if (currentMillis - prevMillis >= txIntervalMillis) {//sending data on a intervall
         serialRead();
         send();
-        serialWrite();
+        //serialWrite();
         prevMillis = millis();
     }
 }

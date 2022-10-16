@@ -87,7 +87,6 @@ class GUI(App):
     def runMainCycle(self, readCycletime):
         self.master.mainCycle()#running the main cycle in the "master" class.  
         self.runTime += readCycletime#runtime
-        print(int(self.runTime))
 
     #runns cycle
     def runApp(self):

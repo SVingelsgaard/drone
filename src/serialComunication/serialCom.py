@@ -26,9 +26,7 @@ class SerialCom():
         self.LBString = "000"
         self.RBString = "000"
         
-        self.serialThread = threading.Thread(target=self.threadLoop)
-        self.serialThread.daemon = True
-        
+        self.serialThread = threading.Thread(target=self.threadLoop)        
 
     def start(self):
         self.run = True
@@ -53,16 +51,11 @@ class SerialCom():
         if not self.offline:
             self.dataIn = (self.arduino.readline().decode("utf-8"))#read data from arduino. an emoji is atached to the end of the message to indicate it is a string. idk y. ignore it.
         
-        print(self.dataIn)
-        
         
     def write(self):
         self.parseData()
         if not self.offline:
-            pass#self.arduino.write(bytes(str(self.dataOut), 'utf-8'))#write data to arduino
-        
-        print(self.dataOut)
-
+            self.arduino.write(bytes(str(self.dataOut), 'utf-8'))#write data to arduino
 
     def parseData(self):#gathering data from the master and saving in a format for writing to arduino
         self.LFString = str(self.master.LF).rjust(3,"0")

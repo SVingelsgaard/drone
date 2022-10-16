@@ -55,6 +55,11 @@ class Drone():
         #self.serialCom.write()#writing the data to the radio controller(drone)
 
     def stopDrone(self):
+        self.LF = 0
+        self.RF = 0
+        self.LB = 0
+        self.RB = 0
+
         self.stopSerialCom()
         self.stopGUI()
 

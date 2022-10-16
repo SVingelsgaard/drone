@@ -36,6 +36,7 @@ class SerialCom():
 
     def stop(self):
         self.run = False
+        self.write()#data is reset in main function. writing one last time so motors stop
 
     def cycle(self):
         while True:

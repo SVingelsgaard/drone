@@ -61,9 +61,9 @@ class GUI(App):
         self.master = None
         self.title = "Drone Controller"
 
-    def stop_(self):
-        App.get_running_app().stop()
-        Window.close()  
+    def stopApp(self):
+        #App.get_running_app().stop()
+        Window.close()#only gives me error
         
     def cycle(self):
         self.input()
@@ -77,6 +77,10 @@ class GUI(App):
     def on_start(self):
         #variables for kv file
         self.controls = self.root.get_screen('mainScreen').ids.controls
+
+    def on_stop(self):
+        self.master.stopDrone()
+    
     def runMainCycle(self, readCycletime):
         self.master.mainCycle()#running the main cycle in the "master" class.  
         self.runTime += readCycletime#runtime

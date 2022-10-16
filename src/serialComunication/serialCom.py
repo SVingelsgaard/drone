@@ -4,8 +4,6 @@ import local
 import serial
 import threading
 import time
-import keyboard
-
 
 class SerialCom():
     def __init__(self, **kwargs):
@@ -44,12 +42,8 @@ class SerialCom():
             if (not self.run):
                 print("stopping serial app.")
                 break
-
-
-            try:
-                self.write()
-            except:
-                print("write failed")
+            self.write()
+            time.sleep(.01)
 
 
     def read(self):

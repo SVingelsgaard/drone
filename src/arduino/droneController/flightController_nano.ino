@@ -54,15 +54,11 @@ void setup() {
     Serial.println("Drone running");
 }
 
-//=============
-
 void loop() {
     getRadioData();
     getDroneData();
     writeOutput();
 }
-
-//==============
 
 void getRadioData() {
     if ( radio.available() ) {

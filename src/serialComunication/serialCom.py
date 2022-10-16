@@ -26,22 +26,23 @@ class SerialCom():
         self.LBString = "000"
         self.RBString = "000"
         
-        self.serialThread = threading.Thread(target=self.cycle)
+        self.serialThread = threading.Thread(target=self.threadLoop)
         
 
     def start(self):
         self.run = True
         self.serialThread.start()#this needs to be after self.run is set to true for shit to work
-        print("Serial comunication running")
 
     def stop(self):
         self.run = False
         self.write()#data is reset in main function. writing one last time so motors stop
 
-    def cycle(self):
+    def threadLoop(self):
+        time.sleep(2)#wait for gui to start
+        print("Serial comunication running")
         while True:
             if (not self.run):
-                print("stopping serial app.")
+                print("Serial comunication stoping")
                 break
             self.write()
             time.sleep(.01)

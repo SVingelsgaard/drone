@@ -60,6 +60,7 @@ class GUI(App):
         self.runTime = 0
         self.master = None
         self.title = "Drone Controller"
+        self.running = False
 
     def stopApp(self):
         #App.get_running_app().stop()
@@ -87,9 +88,10 @@ class GUI(App):
 
     #runns cycle
     def runApp(self):
-        
         Clock.schedule_interval(self.runMainCycle, self.setCycletime)
+        
         print("GUI running")
+        self.running = True
 
 
     #runs myApp(graphics)

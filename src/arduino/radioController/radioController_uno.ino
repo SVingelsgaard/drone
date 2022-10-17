@@ -83,7 +83,6 @@ void serialRead(){
 
             //Print the message (or do other things)
             //serialPrint(String(message));
-        
 
             //Reset for the next message
             message_pos = 0;

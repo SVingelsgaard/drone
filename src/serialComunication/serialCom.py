@@ -44,7 +44,7 @@ class SerialCom():
                 print("Serial comunication stoping")
                 break
             self.write()
-            time.sleep(.1)
+            time.sleep(.001)
 
 
     def read(self):

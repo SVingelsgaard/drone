@@ -1,15 +1,23 @@
 //code for the arduino uno that controlls the drone.
+//radio
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
-#include <Servo.h>
 
-//radio stuff
 #define CE_PIN 9
 #define CSN_PIN 10
 const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
 RF24 radio(CE_PIN, CSN_PIN);
 char dataReceived[12]; // this must match dataToSend in the TX
+
+//motors
+#include <Servo.h>
+int LFPin = 5;
+int RFPin = 3;
+int LBPin = 4;
+int RBPin = 6;
+//gyro/acc
+
 
 //hardware
 int LFPin = 5;//5

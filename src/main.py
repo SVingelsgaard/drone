@@ -43,10 +43,11 @@ class Drone():
         self.serialCom.stop()
 
     def mainCycle(self):
-        self.LF = self.GUI.controls.manLF
-        self.RF = self.LF#self.GUI.controls.manRF
-        self.LB = self.LF#self.GUI.controls.manLB
-        self.RB = self.LF#self.GUI.controls.manRB
+        self.LF = self.GUI.controls.manElevation
+        self.RF = self.GUI.controls.manElevation
+        self.LB = self.GUI.controls.manElevation
+        self.RB = self.GUI.controls.manElevation
+
 
         self.GUI.cycle()#running the gui cycle wich reads user input and presents the real time data from drone(serailCom.read()).
 

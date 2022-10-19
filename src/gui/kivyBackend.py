@@ -1,5 +1,4 @@
 #GUI using the kivy framework
-
 import kivy
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -10,7 +9,7 @@ from kivy.config import Config
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivy.properties import NumericProperty
+from kivy.properties import NumericProperty, BooleanProperty
 from kivy.properties import ListProperty, StringProperty
 from kivy.uix.scatterlayout import ScatterLayout
 from kivy.uix.gridlayout import GridLayout
@@ -20,7 +19,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 
 from gui.static.kivyModules import circularProgressBar
+from gui.static.kivyModules.joystick import Joystick
 import time
+import keyboard
 import os
 
 #config
@@ -48,10 +49,10 @@ class ProcessView(Widget):
     pass
 
 class Controls(Widget):
-    manLF = NumericProperty(0)
-    manRF = NumericProperty(0)
-    manLB = NumericProperty(0)
-    manRB = NumericProperty(0)
+    manElevation = NumericProperty(0)
+    manUp = BooleanProperty(False)
+    manDown = BooleanProperty(False)
+    
 class GUI(App):
     def __init__(self, **kwargs):
         super(GUI, self).__init__(**kwargs)
@@ -63,6 +64,7 @@ class GUI(App):
         self.master = None
         self.title = "Drone Controller"
         self.running = False
+        self.manElevation = 0.0
 
     def stopApp(self):
         #App.get_running_app().stop()
@@ -71,11 +73,21 @@ class GUI(App):
     def cycle(self):
         self.input()
 
-    def input(self):#input form the GUI
-        self.controls.manLF = int(self.root.get_screen('mainScreen').ids.manLF.value)
-        self.controls.manRF = int(self.root.get_screen('mainScreen').ids.manRF.value)
-        self.controls.manLB = int(self.root.get_screen('mainScreen').ids.manLB.value)
-        self.controls.manRB = int(self.root.get_screen('mainScreen').ids.manRB.value)
+        self.manElevation += (40 * self.controls.manUp) * self.readCycletime
+        
+        self.manElevation -= (60 * self.controls.manDown)  * self.readCycletime
+
+        self.manElevation = max(min(self.manElevation, 180),0)
+        print(min(self.manElevation, 180))
+
+        self.output()
+
+    def input(self):#input form the GUI and keyboard
+        self.controls.manUp = keyboard.is_pressed("w")
+        self.controls.manDown = keyboard.is_pressed("s")
+    
+    def output(self):#output to the GUI
+        self.controls.manElevation = self.manElevation
 
     def on_start(self):
         #variables for kv file
@@ -85,8 +97,9 @@ class GUI(App):
         self.master.stopDrone()
     
     def runMainCycle(self, readCycletime):
-        self.master.mainCycle()#running the main cycle in the "master" class.  
-        self.runTime += readCycletime#runtime
+        self.readCycletime = readCycletime
+        self.master.mainCycle()#running the main cycle in the "master" class. 
+        self.runTime += self.readCycletime#runtime
 
     #runns cycle
     def runApp(self):

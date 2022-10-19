@@ -86,31 +86,23 @@ WindowManager:
             GridLayout:
                 pos: self.parent.pos
                 size: self.parent.size
-                cols: 4
+                rows: 2
                 Slider:
-                    id: manLF
-                    min: 0
-                    max: 180
-                    step: 1
-                    orientation: 'vertical'
-                Slider:
-                    id: manRF
-                    min: 0
-                    max: 180
-                    step: 1
-                    orientation: 'vertical'
-                Slider:
-                    id: manLB
-                    min: 0
-                    max: 180
-                    step: 1
-                    orientation: 'vertical'
-                Slider:
-                    id: manRB
+                    id: manElevation
+                    value: self.parent.parent.manElevation
                     min: 0
                     max: 180
                     step: 1
                     orientation: 'vertical'
 
+                Joystick:
+                    id: joystick
+                    outer_background_color: (0.75, 0.75, 0.75, 0.3)
+                    outer_line_color:       (0.25, 0.25, 0.25, 0.3)
+                    inner_background_color: (0.75, 0.75, 0.75, 0.1)
+                    inner_line_color:       (0.7,  0.7,  0.7,  0.1)
+                    pad_background_color:   (1,  1,  1,  0.8)
+                    pad_line_color:         (1,  1,  1,  1)
+                
 
             

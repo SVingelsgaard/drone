@@ -16,8 +16,24 @@ int LFPin = 5;
 int RFPin = 3;
 int LBPin = 4;
 int RBPin = 6;
-//gyro/acc
 
+//gyro/acc
+#include "I2Cdev.h"
+#include "MPU6050.h"
+#include "Wire.h"
+
+MPU6050 accelgyro;
+int16_t ax, ay, az;
+int16_t gx, gy, gz;
+#define OUTPUT_READABLE_ACCELGYRO
+#define LED_PIN 13
+bool blinkState = false;
+// join I2C bus (I2Cdev library doesn't do this automatically)
+#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+    Wire.begin();
+#elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
+    Fastwire::setup(400, true);
+#endif
 
 //hardware
 int LFPin = 5;//5
@@ -59,6 +75,11 @@ void setup() {
     LB.attach(LBPin);
     RB.attach(RBPin);
 
+    //gyro/acc
+    accelgyro.initialize();
+    Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
+    pinMode(LED_PIN, OUTPUT);
+
     Serial.println("Drone running");
 }
 
@@ -84,6 +105,8 @@ void getRadioData() {
 void getDroneData(){
     batteryVoltage = int((float((analogRead(batteryVoltagePin)))/1023)*14000);//AI after voltage divider(18k and 10k) will be 5V when battery voltage is 14V. in mV for presition calculatiun xd
     batteryPercentage = map(batteryVoltage, 11060, 12600, 10, 100);//maped ish after table from https://blog.ampow.com/lipo-voltage-chart/
+
+    accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);//get imu data
 }
 
 void writeOutput(){

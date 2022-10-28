@@ -38,6 +38,9 @@
                 "C:\\Users\\Sigur\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.5\\libraries\\SPI\\src",
                 "C:\\Program Files (x86)\\Arduino\\libraries\\RF24master",
                 "C:\\Users\\Sigur\\OneDrive\\Dokumenter\\Arduino\\libraries\\Servo\\src",
+                "C:\\Program Files (x86)\\Arduino\\libraries\\I2Cdev",
+                "C:\\Users\\Sigur\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.5\\libraries\\Wire\\src",
+                "C:\\Program Files (x86)\\Arduino\\libraries\\MPU6050",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\avr\\include"

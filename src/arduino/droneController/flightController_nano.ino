@@ -63,6 +63,7 @@ void setup() {
     pinMode(10, OUTPUT);//for radio?
     Serial.begin(9600);
     Serial.println("Drone starting..");
+    
     //radio
     radio.begin();
     radio.setDataRate( RF24_250KBPS );
